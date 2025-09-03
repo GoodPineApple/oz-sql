@@ -7,25 +7,6 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-const { Sequelize } = require('sequelize');
-
-const sequelize = new Sequelize('memo', 'root', 'qwer1234', {
-  host: 'localhost',
-  dialect: 'mysql'
-});
-
-sequelize.authenticate().then(() => {
-  console.log('Connection has been established successfully.');
-}).catch((error) => {
-  console.error('Unable to connect to the database:', error);
-});
-
-sequelize.query('SELECT * FROM user').then((result) => {
-  console.log(result);
-}).catch((error) => {
-  console.error('Unable to connect to the database:', error);
-});
-
 var app = express();
 
 // view engine setup
