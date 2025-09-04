@@ -3,6 +3,7 @@ var router = express.Router();
 var Memos = require('../models/memos');
 var Users = require('../models/users');
 var DesignTemplates = require('../models/designTemplates');
+const { routes } = require('../app');
 
 // GET /memos - Get all memos with user and template info
 router.get('/', function(req, res, next) {
