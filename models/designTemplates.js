@@ -39,7 +39,8 @@ const DesignTemplates = sequelize.define('designTemplate', {
   updatedAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    onUpdate: sequelize.literal('CURRENT_TIMESTAMP')
   }
 });
 

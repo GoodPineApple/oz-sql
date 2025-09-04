@@ -28,16 +28,17 @@ router.get('/:id', function(req, res, next) {
 
 // POST /users - Create new user
 router.post('/', function(req, res, next) {
-  const { username, email } = req.body;
+  const { username, password, email } = req.body;
   
   // Validate required fields
-  if (!username || !email) {
-    return res.status(400).json({ error: 'Missing required fields: username, email' });
+  if (!username || !password || !email) {
+    return res.status(400).json({ error: 'Missing required fields: username, password, email' });
   }
   
   const userData = {
     // id, createdAt, updatedAt는 자동 생성되므로 제거
     username,
+    password,
     email
   };
   

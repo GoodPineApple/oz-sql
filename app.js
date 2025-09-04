@@ -4,20 +4,31 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var dotenv = require('dotenv');
+var cors = require('cors');
 dotenv.config();
 
 var homeRouter = require('./routes/home-route');
 var usersRouter = require('./routes/user-route');
 var memosRouter = require('./routes/memo-route');
 var designTemplatesRouter = require('./routes/designTemplate-route');
+var authRouter = require('./routes/auth-route');
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+// Configure morgan logging based on environment
+if (process.env.NODE_ENV === 'production') {
+  // Production: Use combined format for comprehensive logging
+  app.use(logger('combined'));
+} else {
+  // Development: Use custom format for API requests with detailed info
+  const customFormat = ':method :url :status :res[content-length] - :response-time ms - :date[iso]';
+  app.use(logger(customFormat));
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -27,6 +38,7 @@ app.use('/', homeRouter);
 app.use('/users', usersRouter);
 app.use('/memos', memosRouter);
 app.use('/templates', designTemplatesRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

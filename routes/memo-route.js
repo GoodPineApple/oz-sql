@@ -9,7 +9,11 @@ router.get('/', function(req, res, next) {
   // Memos.findAll();
   Memos.findAll({
     include: [
-      { model: Users, as: 'user' },
+      { 
+        model: Users, 
+        as: 'user',
+        attributes: { exclude: ['password'] }
+      },
       { model: DesignTemplates, as: 'template' }
     ]
   }).then((memos) => {
@@ -25,7 +29,11 @@ router.get('/:id', function(req, res, next) {
   
   Memos.findByPk(memoId, {
     include: [
-      { model: Users, as: 'user' },
+      { 
+        model: Users, 
+        as: 'user',
+        attributes: { exclude: ['password'] }
+      },
       { model: DesignTemplates, as: 'template' }
     ]
   }).then((memo) => {
