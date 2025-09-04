@@ -38,7 +38,7 @@ router.post('/', function(req, res, next) {
   }
   
   const templateData = {
-    // id는 autoIncrement로 자동 생성되므로 제거
+    // id, createdAt, updatedAt는 자동 생성되므로 제거
     name,
     backgroundColor,
     textColor,

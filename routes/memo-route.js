@@ -49,13 +49,11 @@ router.post('/', function(req, res, next) {
   }
   
   const memoData = {
-    // id는 autoIncrement로 자동 생성되므로 제거
+    // id, createdAt, updatedAt는 자동 생성되므로 제거
     title,
     content,
     templateId: parseInt(templateId),
-    userId: parseInt(userId),
-    createdAt: new Date(),
-    updatedAt: new Date()
+    userId: parseInt(userId)
   };
   
   Memos.create(memoData).then((memo) => {
@@ -82,12 +80,11 @@ router.put('/:id', function(req, res, next) {
       return res.status(404).json({ error: 'Memo not found' });
     }
     
-    // Update all fields
+    // Update all fields (updatedAt는 Sequelize가 자동으로 업데이트)
     memo.title = title;
     memo.content = content;
     memo.templateId = templateId;
     memo.userId = userId;
-    memo.updatedAt = new Date();
     
     return memo.save();
   }).then((updatedMemo) => {
@@ -107,12 +104,11 @@ router.patch('/:id', function(req, res, next) {
       return res.status(404).json({ error: 'Memo not found' });
     }
     
-    // Update only provided fields
+    // Update only provided fields (updatedAt는 Sequelize가 자동으로 업데이트)
     if (title !== undefined) memo.title = title;
     if (content !== undefined) memo.content = content;
     if (templateId !== undefined) memo.templateId = templateId;
     if (userId !== undefined) memo.userId = userId;
-    memo.updatedAt = new Date();
     
     return memo.save();
   }).then((updatedMemo) => {
