@@ -7,6 +7,18 @@ const Users = sequelize.define('user', {
     primaryKey: true,
     autoIncrement: true
   },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
 });
 
 // console.log("syncing users  ");
